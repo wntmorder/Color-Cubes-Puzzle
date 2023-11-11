@@ -1,0 +1,7 @@
+# Unity-specific settings
+*.meta linguist-language=Unity
+
+# Unity YAMLMerge merge=unityyamlmerge eol=lf
+*.unity eol=lf
+*.asset eol=lf
+*.mat eol=lf
