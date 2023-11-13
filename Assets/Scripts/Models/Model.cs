@@ -26,19 +26,19 @@ public class Model : MonoBehaviour
         sides = new SideData[] {
             new SideData {
                 StartPosition = new Vector3(radius, 0f, radius) + modelOffset,
-                Dirrection = new Vector3(0f, 0f, -objectSpacing),
+                Direction = new Vector3(0f, 0f, -objectSpacing),
             },
             new SideData {
                 StartPosition = new Vector3(radius, 0f, -radius) + modelOffset,
-                Dirrection = new Vector3(-objectSpacing, 0f, 0f),
+                Direction = new Vector3(-objectSpacing, 0f, 0f),
             },
             new SideData {
                 StartPosition = new Vector3(-radius, 0f, -radius) + modelOffset,
-                Dirrection = new Vector3(0f, 0f, objectSpacing),
+                Direction = new Vector3(0f, 0f, objectSpacing),
             },
             new SideData {
                 StartPosition = new Vector3(-radius, 0f, radius) + modelOffset,
-                Dirrection = new Vector3(objectSpacing, 0f, 0f),
+                Direction = new Vector3(objectSpacing, 0f, 0f),
             },
         };
 
@@ -81,17 +81,39 @@ public class Model : MonoBehaviour
         int side = Mathf.FloorToInt(index / sideLength);
         int numberInSide = index - (side * sideLength);
         SideData sideData = sides[side];
-        Vector3 position = sideData.StartPosition + sideData.Dirrection * numberInSide;
+        Vector3 position = sideData.StartPosition + sideData.Direction * numberInSide;
         return position;
     }
+    public int GetIndexByPosition(Vector3 position)
+    {
+        int side = 0;
+        float minDistance = float.MaxValue;
+        for (int i = 0; i < sides.Length; i++)
+        {
+            float distance = Vector3.Dot(position - sides[i].StartPosition, sides[i].Direction);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                side = i;
+            }
+        }
+        int numberInSide = Mathf.FloorToInt(Vector3.Dot(position - sides[side].StartPosition, sides[side].Direction));
+        int index = side * sideLength + numberInSide;
+        return index;
+    }
+
     public List<Vector3> GetDiamondPositions()
     {
         List<Vector3> positions = new();
 
         foreach (Diamond diamond in Diamonds)
         {
-            positions.Add(diamond.transform.localPosition);
+            positions.Add(diamond.transform.InverseTransformPoint(transform.position));
         }
         return positions;
+    }
+    public Type GetDiamondColor(int index)
+    {
+        return diamondsConfig.GetDiamondConfig(CalculateIndexWithOffset(index)).type;
     }
 }

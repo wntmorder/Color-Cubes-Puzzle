@@ -45,6 +45,7 @@ public class ControlLogic : MonoBehaviour
             if (Mathf.Abs(offset.y) > swipeZone)
             {
                 modelManager.Rotate(startSwipePosition, offset);
+                modelManager.CheckIntersection();
                 startSwipePosition = endSwipePosition;
             }
         }

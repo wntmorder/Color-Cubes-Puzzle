@@ -1,11 +1,13 @@
-using System.Collections.Generic;
+using Diamonds;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ModelManager : MonoBehaviour
 {
     [SerializeField] private ModelFactory modelFactory;
     [SerializeField] private Transform parentTransform;
     [SerializeField] private int numberOfObjects = 16;
+    public Type type = Type.Rose;
 
     private Model modelLeft;
     private Model modelRight;
@@ -13,7 +15,6 @@ public class ModelManager : MonoBehaviour
     private void Start()
     {
         CreateAndPlaceModel();
-        CheckIntersection();
     }
     private void CreateAndPlaceModel()
     {
@@ -46,17 +47,25 @@ public class ModelManager : MonoBehaviour
             }
         }
     }
-    private void CheckIntersection()
+    public void CheckIntersection()
     {
         List<Vector3> leftModelPositions = modelLeft.GetDiamondPositions();
         List<Vector3> rightModelPositions = modelRight.GetDiamondPositions();
-        foreach (Vector3 leftPosition in leftModelPositions)
+        for (int i = 0; i < leftModelPositions.Count; i++)
         {
-            foreach (Vector3 rightPosition in rightModelPositions)
+            Vector3 leftPosition = leftModelPositions[i];
+            for (int j = 0; j < rightModelPositions.Count; j++)
             {
+                Vector3 rightPosition = rightModelPositions[j];
                 if (Vector3.Distance(leftPosition, rightPosition) < 0.1f)
                 {
-                    Debug.Log("Intersection: " + leftPosition);
+                    //Debug.Log("Color at the intersection point: " + modelLeft.GetDiamondColor(modelLeft.GetIndexByPosition(leftPosition)));
+                    Type modelLeftIntersectionType = modelLeft.GetDiamondColor(modelLeft.GetIndexByPosition(leftPosition));
+                    Type modelRightIntersectionType = modelRight.GetDiamondColor(modelRight.GetIndexByPosition(leftPosition));
+                    if(modelLeftIntersectionType == type && modelRightIntersectionType == type)
+                    {
+                        Debug.Log("Task completed");
+                    }
                 }
             }
         }

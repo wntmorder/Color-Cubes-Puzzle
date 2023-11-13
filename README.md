@@ -1,8 +1,7 @@
 # Game Project
 
 ## Description
-This is a Unity game project involving two rhombuses filled with diamonds of different colors. 
-The objective is to set the same and required color diamonds in the two points of intersection by rotating the rhombuses.
+Two rhombuses, each filled with cubes of various colors, intersect at two points. The cubes at these intersections can be relocated to either rhombus by rotating them clockwise or counterclockwise. By swiping your finger on the left side of the screen, you rotate the left rhombus, and on the right side, you rotate the right rhombus. The objective is to position cubes of the same color at the two intersection points, meeting the specified color requirements.
 
 ## How to Play
 - Rotate the left rhombus by swiping on the left side of the screen.
