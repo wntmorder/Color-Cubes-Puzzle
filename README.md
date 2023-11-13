@@ -6,7 +6,7 @@ Two rhombuses, each filled with cubes of various colors, intersect at two points
 ## How to Play
 - Rotate the left rhombus by swiping on the left side of the screen.
 - Rotate the right rhombus by swiping on the right side of the screen.
-- Align diamonds of the same color in the intersection points to win.
+- Align cubes of the same color in the intersection points to win.
 
 ## Development Setup
 1. Clone the repository.
@@ -14,7 +14,7 @@ Two rhombuses, each filled with cubes of various colors, intersect at two points
 3. Run the game in the Unity Editor or build it for your target platform.
 
 ## Dependencies
-- Unity version:[2022.3.12f1](https://unity.com/releases/editor/whats-new/2022.3.12)
+- Unity version: [2022.3.12f1](https://unity.com/releases/editor/whats-new/2022.3.12)
 
 ## License
 This project is licensed under the [MIT License](LICENSE).

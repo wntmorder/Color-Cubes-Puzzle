@@ -49,25 +49,12 @@ public class ModelManager : MonoBehaviour
     }
     public void CheckIntersection()
     {
-        List<Vector3> leftModelPositions = modelLeft.GetDiamondPositions();
-        List<Vector3> rightModelPositions = modelRight.GetDiamondPositions();
-        for (int i = 0; i < leftModelPositions.Count; i++)
-        {
-            Vector3 leftPosition = leftModelPositions[i];
-            for (int j = 0; j < rightModelPositions.Count; j++)
-            {
-                Vector3 rightPosition = rightModelPositions[j];
-                if (Vector3.Distance(leftPosition, rightPosition) < 0.1f)
-                {
-                    //Debug.Log("Color at the intersection point: " + modelLeft.GetDiamondColor(modelLeft.GetIndexByPosition(leftPosition)));
-                    Type modelLeftIntersectionType = modelLeft.GetDiamondColor(modelLeft.GetIndexByPosition(leftPosition));
-                    Type modelRightIntersectionType = modelRight.GetDiamondColor(modelRight.GetIndexByPosition(leftPosition));
-                    if(modelLeftIntersectionType == type && modelRightIntersectionType == type)
-                    {
-                        Debug.Log("Task completed");
-                    }
-                }
-            }
-        }
+        Debug.Log($"Left: {modelLeft.GetIntersectionPointsByIndex(1)}\n\tRight: {modelRight.GetIntersectionPointsByIndex(1)}");
+        //Type modelLeftIntersectionType = modelLeft.GetDiamondColor();
+        //Type modelRightIntersectionType = modelRight.GetDiamondColor();
+        //if(modelLeftIntersectionType == type && modelRightIntersectionType == type)
+        //{
+        //    Debug.Log("Task completed");
+        //}
     }
 }
