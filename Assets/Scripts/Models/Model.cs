@@ -108,7 +108,7 @@ public class Model : MonoBehaviour
 
         foreach (Diamond diamond in Diamonds)
         {
-            positions.Add(diamond.transform.InverseTransformPoint(transform.position));
+            positions.Add(diamond.transform.localPosition);
         }
         return positions;
     }
