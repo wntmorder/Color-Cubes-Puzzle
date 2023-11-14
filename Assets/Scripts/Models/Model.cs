@@ -99,10 +99,10 @@ public class Model : MonoBehaviour
     {
         int side = Mathf.FloorToInt(index / sideLength);
         SideData sideData = sides[side];
-        Vector3 position = sideData.StartPosition + sideData.Direction * (CalculateSideIndex(index, side));
+        Vector3 position = sideData.StartPosition + sideData.Direction * (CalculateIndexInSide(index, side));
         return position;
     }
-    private int CalculateSideIndex(int index, int side)
+    private int CalculateIndexInSide(int index, int side)
     {
         return index - (side * sideLength);
     }

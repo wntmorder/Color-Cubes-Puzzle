@@ -1,18 +1,13 @@
-using Diamonds;
 using UnityEngine;
-using System.Collections.Generic;
-
 public class ModelManager : MonoBehaviour
 {
     [SerializeField] private ModelFactory modelFactory;
     [SerializeField] private Transform parentTransform;
     [SerializeField] private int numberOfObjects = 16;
     [SerializeField] private int intersectionDistance = 2;
-    public Type type = Type.Rose;
-
     private Model modelLeft;
     private Model modelRight;
-
+    private Model activeModel;
     private void Start()
     {
         CreateAndPlaceModel();
@@ -25,37 +20,18 @@ public class ModelManager : MonoBehaviour
     public void Rotate(Vector3 startPosition, Vector3 offset)
     {
         float screenHalfWidth = Screen.width * 0.5f;
-        if (startPosition.x < screenHalfWidth)
+        activeModel = (startPosition.x < screenHalfWidth) ? modelLeft : modelRight;
+        if (offset.y < 0)
         {
-            if (offset.y < 0)
-            {
-                modelLeft.RotateLeft();
-            }
-            else if (offset.y > 0)
-            {
-                modelLeft.RotateRight();
-            }
+            activeModel.RotateLeft();
         }
-        else
+        else if (offset.y > 0)
         {
-            if (offset.y < 0)
-            {
-                modelRight.RotateLeft();
-            }
-            else if (offset.y > 0)
-            {
-                modelRight.RotateRight();
-            }
+            activeModel.RotateRight();
         }
     }
     public void CheckIntersection()
     {
         Debug.Log($"Left: {modelLeft.GetIntersectionPointsByIndex(1)}\n\tRight: {modelRight.GetIntersectionPointsByIndex(1)}");
-        //Type modelLeftIntersectionType = modelLeft.GetDiamondColor();
-        //Type modelRightIntersectionType = modelRight.GetDiamondColor();
-        //if(modelLeftIntersectionType == type && modelRightIntersectionType == type)
-        //{
-        //    Debug.Log("Task completed");
-        //}
     }
 }
