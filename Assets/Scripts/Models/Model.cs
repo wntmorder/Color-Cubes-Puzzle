@@ -7,22 +7,39 @@ public class Model : MonoBehaviour
     [SerializeField] private Diamond objectPrefab;
     [SerializeField] private float objectSpacing = 0.75f;
     private int numberOfObjects;
-    private ModelSides modelSide;
     private List<Diamond> Diamonds = new();
 
     private int sideLength;
     private int offset = 0;
     private float radius;
     private SideData[] sides;
-    public void Initialize(ModelSides modelSide, int numberOfObjects)
+
+    private int topIntersectionIndex;
+    private int bottomIntersectionIndex;
+    public void Initialize(ModelSides modelSide, int numberOfObjects, int intersectionDistance)
     {
         this.numberOfObjects = numberOfObjects;
-        this.modelSide = modelSide;
         transform.Rotate(Vector3.up * 45f);
         sideLength = Mathf.FloorToInt(numberOfObjects * 0.25f);
-        radius = sideLength * objectSpacing * 0.5f;
-
-        float modelOffsetValue = (modelSide == ModelSides.Left) ? -radius * 0.5f : (modelSide == ModelSides.Right) ? radius * 0.5f : 0f;
+        radius = (sideLength * 0.5f) * objectSpacing;
+        float modelOffsetValue = 0f;
+        switch (modelSide)
+        {
+            case ModelSides.Left:
+                {
+                    topIntersectionIndex = (numberOfObjects - sideLength) + intersectionDistance;
+                    bottomIntersectionIndex = sideLength - intersectionDistance;
+                    modelOffsetValue = (-intersectionDistance * objectSpacing) * 0.5f;
+                    break;
+                }
+            case ModelSides.Right:
+                {
+                    topIntersectionIndex = numberOfObjects - sideLength - intersectionDistance;
+                    bottomIntersectionIndex = sideLength + intersectionDistance;
+                    modelOffsetValue = (intersectionDistance * objectSpacing) * 0.5f;
+                    break;
+                }
+        }
         Vector3 modelOffset = new(modelOffsetValue, 0f, modelOffsetValue);
 
         sides = new SideData[] {
@@ -82,48 +99,18 @@ public class Model : MonoBehaviour
     {
         int side = Mathf.FloorToInt(index / sideLength);
         SideData sideData = sides[side];
-        Vector3 position = sideData.StartPosition + sideData.Direction * (index - (side * sideLength));
+        Vector3 position = sideData.StartPosition + sideData.Direction * (CalculateSideIndex(index, side));
         return position;
+    }
+    private int CalculateSideIndex(int index, int side)
+    {
+        return index - (side * sideLength);
     }
     public IntersectionPoints GetIntersectionPointsByIndex(int index)
     {
         index = CalculateIndexWithOffset(index);
         int side = Mathf.FloorToInt(index / sideLength);
-        int targetIndex = (side * sideLength) + (sideLength / 2);
-        switch (modelSide)
-        {
-            case ModelSides.Left:
-                {
-                    if (side == 3 && index == targetIndex)
-                    {
-                        return IntersectionPoints.Top;
-                    }
-                    else if (side == 0 && index == targetIndex)
-                    {
-                        return IntersectionPoints.Bottom;
-                    }
-                    else
-                    {
-                        return IntersectionPoints.None;
-                    }
-                }
-            case ModelSides.Right:
-                {
-                    if (side == 2 && index == targetIndex)
-                    {
-                        return IntersectionPoints.Top;
-                    }
-                    else if (side == 1 && index == targetIndex)
-                    {
-                        return IntersectionPoints.Bottom;
-                    }
-                    else
-                    {
-                        return IntersectionPoints.None;
-                    }
-                }
-            default: return IntersectionPoints.None;
-        }
+        return (index == topIntersectionIndex) ? IntersectionPoints.Top : (index == bottomIntersectionIndex) ? IntersectionPoints.Bottom : IntersectionPoints.None;
     }
     public Diamonds.Type GetDiamondColor(int index)
     {
