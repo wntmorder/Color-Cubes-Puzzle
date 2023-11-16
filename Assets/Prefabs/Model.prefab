@@ -48,3 +48,4 @@ MonoBehaviour:
   objectPrefab: {fileID: 8550046452697295765, guid: 4061f8ed1007e0e4085cdb4888c3c762,
     type: 3}
   objectSpacing: 0.75
+  rotateDuration: 1

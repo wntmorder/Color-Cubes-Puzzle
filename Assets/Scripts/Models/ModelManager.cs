@@ -5,6 +5,7 @@ public class ModelManager : MonoBehaviour
     [SerializeField] private Transform parentTransform;
     [SerializeField] private int numberOfObjects = 16;
     [SerializeField] private int intersectionDistance = 2;
+    [SerializeField] private float rotateDuration;
     private Model modelLeft;
     private Model modelRight;
     private Model activeModel;
@@ -14,8 +15,8 @@ public class ModelManager : MonoBehaviour
     }
     private void CreateAndPlaceModel()
     {
-        modelLeft = modelFactory.CreateModel(numberOfObjects, parentTransform, ModelSides.Left, intersectionDistance);
-        modelRight = modelFactory.CreateModel(numberOfObjects, parentTransform, ModelSides.Right, intersectionDistance);
+        modelLeft = modelFactory.CreateModel(numberOfObjects, parentTransform, ModelSides.Left, intersectionDistance, rotateDuration);
+        modelRight = modelFactory.CreateModel(numberOfObjects, parentTransform, ModelSides.Right, intersectionDistance, rotateDuration);
     }
     public void Rotate(Vector3 startPosition, Vector3 offset)
     {
@@ -32,6 +33,6 @@ public class ModelManager : MonoBehaviour
     }
     public void CheckIntersection()
     {
-        Debug.Log($"Left: {modelLeft.GetIntersectionPointsByIndex(1)}\n\tRight: {modelRight.GetIntersectionPointsByIndex(1)}");
+        //Debug.Log($"Left: {modelLeft.GetIntersectionPointsByIndex(1)}\n\tRight: {modelRight.GetIntersectionPointsByIndex(1)}");
     }
 }

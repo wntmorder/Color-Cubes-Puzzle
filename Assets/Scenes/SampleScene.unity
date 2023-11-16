@@ -254,6 +254,7 @@ MonoBehaviour:
   parentTransform: {fileID: 1370984065}
   numberOfObjects: 16
   intersectionDistance: 2
+  rotateDuration: 0.15
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

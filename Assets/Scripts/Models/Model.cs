@@ -1,12 +1,14 @@
 using Diamonds;
 using UnityEngine;
 using System.Collections.Generic;
+
 public class Model : MonoBehaviour
 {
     [SerializeField] private DiamondsConfig diamondsConfig;
     [SerializeField] private Diamond objectPrefab;
     [SerializeField] private float objectSpacing = 0.75f;
     private int numberOfObjects;
+    private float rotateDuration;
     private List<Diamond> Diamonds = new();
 
     private int sideLength;
@@ -16,10 +18,11 @@ public class Model : MonoBehaviour
 
     private int topIntersectionIndex;
     private int bottomIntersectionIndex;
-    public void Initialize(ModelSides modelSide, int numberOfObjects, int intersectionDistance)
+    public void Initialize(ModelSides modelSide, int numberOfObjects, int intersectionDistance, float rotateDuration)
     {
         this.numberOfObjects = numberOfObjects;
-        transform.Rotate(Vector3.up * 45f);
+        this.rotateDuration = rotateDuration;
+        transform.Rotate(transform.up * 45f);
         sideLength = Mathf.FloorToInt(numberOfObjects * 0.25f);
         radius = (sideLength * 0.5f) * objectSpacing;
         float modelOffsetValue = 0f;
@@ -65,7 +68,7 @@ public class Model : MonoBehaviour
         {
             Diamond diamond = Instantiate(objectPrefab, transform);
             diamond.SetConfig(diamondsConfig.GetDiamondConfig(i % numberOfObjects));
-            diamond.MoveIn(GetPositionByIndex(i));
+            diamond.MoveIn(GetPositionByIndex(i), rotateDuration);
             Diamonds.Add(diamond);
         }
     }
@@ -88,7 +91,7 @@ public class Model : MonoBehaviour
         for (int i = 0; i < numberOfObjects; i++)
         {
             int index = CalculateIndexWithOffset(i);
-            Diamonds[i].MoveIn(GetPositionByIndex(index));
+            Diamonds[i].MoveIn(GetPositionByIndex(index), rotateDuration);
         }
     }
     private int CalculateIndexWithOffset(int index)
@@ -109,7 +112,6 @@ public class Model : MonoBehaviour
     public IntersectionPoints GetIntersectionPointsByIndex(int index)
     {
         index = CalculateIndexWithOffset(index);
-        int side = Mathf.FloorToInt(index / sideLength);
         return (index == topIntersectionIndex) ? IntersectionPoints.Top : (index == bottomIntersectionIndex) ? IntersectionPoints.Bottom : IntersectionPoints.None;
     }
     public Diamonds.Type GetDiamondColor(int index)

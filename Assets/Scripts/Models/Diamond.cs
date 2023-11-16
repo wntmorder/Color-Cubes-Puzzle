@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace Diamonds
 {
@@ -6,9 +7,9 @@ namespace Diamonds
     {
         [SerializeField] private new Renderer renderer;
 
-        public void MoveIn(Vector3 position, float moveTime = 0f)
+        public void MoveIn(Vector3 position, float duration)
         {
-            transform.localPosition = position;
+            transform.DOLocalMove(position, duration);
         }
 
         public void SetConfig(DiamondConfig diamondConfig)
