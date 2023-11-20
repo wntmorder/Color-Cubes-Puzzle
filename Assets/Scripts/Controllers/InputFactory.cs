@@ -18,20 +18,19 @@ public class MouseInputHandler : IInputHandler
 
     public void Update()
     {
-        Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+        Vector2 screenSize = new(Screen.width, Screen.height);
         currentMousePosition = Input.mousePosition / screenSize;
         if (Input.GetMouseButtonDown(0))
         {
             OnSwipeStart?.Invoke(currentMousePosition);
         }
-        else if (Input.GetMouseButton(0))
-        {
-            currentMousePosition = Input.mousePosition;
-            OnSwipeMove?.Invoke(currentMousePosition);
-        }
         else if (Input.GetMouseButtonUp(0))
         {
             OnSwipeEnd?.Invoke(currentMousePosition);
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            OnSwipeMove?.Invoke(currentMousePosition);
         }
     }
 }
@@ -45,7 +44,7 @@ public class TouchInputHandler : IInputHandler
 
     public void Update()
     {
-        Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+        Vector2 screenSize = new(Screen.width, Screen.height);
         currentTouchPosition = Input.GetTouch(0).position / screenSize;
         if (Input.touchCount > 0)
         {
@@ -55,7 +54,6 @@ public class TouchInputHandler : IInputHandler
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Moved)
             {
-                currentTouchPosition = Input.GetTouch(0).position;
                 OnSwipeMove?.Invoke(currentTouchPosition);
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Canceled || Input.GetTouch(0).phase == TouchPhase.Ended)

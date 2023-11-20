@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Models\SideData.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />
+    <Compile Include="Assets\Scripts\Models\Diamond.MoveStep.cs" />
     <Compile Include="Assets\Scripts\Models\ModelFactory.cs" />
     <Compile Include="Assets\Scripts\Models\IntersectionPoints.cs" />
     <Compile Include="Assets\Scripts\Models\Diamond.cs" />

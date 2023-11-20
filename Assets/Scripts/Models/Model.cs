@@ -1,14 +1,12 @@
 using Diamonds;
 using UnityEngine;
 using System.Collections.Generic;
-
 public class Model : MonoBehaviour
 {
     [SerializeField] private DiamondsConfig diamondsConfig;
     [SerializeField] private Diamond objectPrefab;
     [SerializeField] private float objectSpacing = 0.75f;
     private int numberOfObjects;
-    private float rotateDuration;
     private List<Diamond> Diamonds = new();
 
     private int sideLength;
@@ -18,10 +16,18 @@ public class Model : MonoBehaviour
 
     private int topIntersectionIndex;
     private int bottomIntersectionIndex;
-    public void Initialize(ModelSides modelSide, int numberOfObjects, int intersectionDistance, float rotateDuration)
+    private bool isActiveModel = true;
+    public bool IsActiveModel
+    {
+        get => isActiveModel;
+        set
+        {
+            isActiveModel = value;
+        }
+    }
+    public void Initialize(ModelSides modelSide, int numberOfObjects, int intersectionDistance)
     {
         this.numberOfObjects = numberOfObjects;
-        this.rotateDuration = rotateDuration;
         transform.Rotate(transform.up * 45f);
         sideLength = Mathf.FloorToInt(numberOfObjects * 0.25f);
         radius = (sideLength * 0.5f) * objectSpacing;
@@ -67,31 +73,31 @@ public class Model : MonoBehaviour
         for (int i = 0; i < numberOfObjects; i++)
         {
             Diamond diamond = Instantiate(objectPrefab, transform);
-            diamond.SetConfig(diamondsConfig.GetDiamondConfig(i % numberOfObjects));
-            diamond.MoveIn(GetPositionByIndex(i), rotateDuration);
+            diamond.SetConfig(diamondsConfig.GetDiamondConfig(i % sideLength == 1 ? 1 : 0));
+            diamond.MoveIn(GetPositionByIndex(i), Time.time);
             Diamonds.Add(diamond);
         }
     }
-    public void RotateLeft()
+    public void RotateLeft(float duration)
     {
         SetOffset(offset - 1);
-        UpdateState();
+        UpdateState(duration);
     }
-    public void RotateRight()
+    public void RotateRight(float duration)
     {
         SetOffset(offset + 1);
-        UpdateState();
+        UpdateState(duration);
     }
     private void SetOffset(int value)
     {
         offset = (value % numberOfObjects + numberOfObjects) % numberOfObjects;
     }
-    private void UpdateState()
+    private void UpdateState(float duration)
     {
         for (int i = 0; i < numberOfObjects; i++)
         {
             int index = CalculateIndexWithOffset(i);
-            Diamonds[i].MoveIn(GetPositionByIndex(index), rotateDuration);
+            Diamonds[i].MoveIn(GetPositionByIndex(index), duration);
         }
     }
     private int CalculateIndexWithOffset(int index)
@@ -113,6 +119,10 @@ public class Model : MonoBehaviour
     {
         index = CalculateIndexWithOffset(index);
         return (index == topIntersectionIndex) ? IntersectionPoints.Top : (index == bottomIntersectionIndex) ? IntersectionPoints.Bottom : IntersectionPoints.None;
+    }
+    public IEnumerable<int> GetIntersectionPoints()
+    {
+        return new int[] { topIntersectionIndex, bottomIntersectionIndex };
     }
     public Diamonds.Type GetDiamondColor(int index)
     {

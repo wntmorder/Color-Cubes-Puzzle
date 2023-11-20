@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class ControlLogic : MonoBehaviour
 {
     [SerializeField] private ModelManager modelManager;
@@ -7,8 +6,9 @@ public class ControlLogic : MonoBehaviour
     private Vector3 startSwipePosition = Vector3.zero;
     private Vector3 endSwipePosition = Vector3.zero;
     private Vector3 offset = Vector3.zero;
-    private float swipeZone = 0.5f;
+    private float swipeZone = 0.05f;
     private bool isSwiping = false;
+    private float lastSwipeStartTime;
 
     private void Start()
     {
@@ -20,8 +20,8 @@ public class ControlLogic : MonoBehaviour
     private void OnSwipeStart(Vector3 startPosition)
     {
         isSwiping = true;
+        lastSwipeStartTime = Time.time;
         startSwipePosition = startPosition;
-        endSwipePosition = startPosition;
     }
     private void OnSwipeMove(Vector3 currentPosition)
     {
@@ -44,8 +44,9 @@ public class ControlLogic : MonoBehaviour
         {
             if (Mathf.Abs(offset.y) > swipeZone)
             {
-                modelManager.Rotate(startSwipePosition, offset);
+                modelManager.Rotate(startSwipePosition, offset, Time.time - lastSwipeStartTime);
                 modelManager.CheckIntersection();
+                lastSwipeStartTime = Time.time;
                 startSwipePosition = endSwipePosition;
             }
         }
