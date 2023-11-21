@@ -1,6 +1,7 @@
 using Diamonds;
 using UnityEngine;
 using System.Collections.Generic;
+
 public class Model : MonoBehaviour
 {
     [SerializeField] private DiamondsConfig diamondsConfig;
@@ -73,7 +74,7 @@ public class Model : MonoBehaviour
         for (int i = 0; i < numberOfObjects; i++)
         {
             Diamond diamond = Instantiate(objectPrefab, transform);
-            diamond.SetConfig(diamondsConfig.GetDiamondConfig(i % sideLength == 1 ? 1 : 0));
+            diamond.SetConfig(diamondsConfig.GetDiamondConfig(i % sideLength == 0 ? 1 : 0));
             diamond.MoveIn(GetPositionByIndex(i), Time.time);
             Diamonds.Add(diamond);
         }
@@ -115,17 +116,23 @@ public class Model : MonoBehaviour
     {
         return index - (side * sideLength);
     }
-    public IntersectionPoints GetIntersectionPointsByIndex(int index)
-    {
-        index = CalculateIndexWithOffset(index);
-        return (index == topIntersectionIndex) ? IntersectionPoints.Top : (index == bottomIntersectionIndex) ? IntersectionPoints.Bottom : IntersectionPoints.None;
-    }
-    public IEnumerable<int> GetIntersectionPoints()
+    public int[] GetIntersectionPoints()
     {
         return new int[] { topIntersectionIndex, bottomIntersectionIndex };
     }
-    public Diamonds.Type GetDiamondColor(int index)
+    public Diamond GetIntersectionDiamond(int intersectionIndex)
     {
-        return diamondsConfig.GetDiamondConfig(CalculateIndexWithOffset(index)).type;
+        Diamond diamond = new();
+        Vector3 intersectionPosition = GetPositionByIndex(intersectionIndex);
+        for (int i = 0; i < numberOfObjects; i++)
+        {
+            int index = CalculateIndexWithOffset(i);
+            if (GetPositionByIndex(index) == intersectionPosition)
+            {
+                //Debug.Log(i);
+                diamond = Diamonds[i];
+            }
+        }
+        return diamond;
     }
 }

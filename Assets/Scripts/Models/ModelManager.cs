@@ -47,6 +47,6 @@ public class ModelManager : MonoBehaviour
     }
     public void CheckIntersection()
     {
-       
+        //Debug.Log(activeModel.GetIntersectionDiamond(activeModel.GetIntersectionPoints()[0]));
     }
 }
