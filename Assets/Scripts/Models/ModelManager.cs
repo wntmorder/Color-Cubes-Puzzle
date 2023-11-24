@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class ModelManager : MonoBehaviour
 {
     [SerializeField] private ModelFactory modelFactory;
@@ -8,6 +9,7 @@ public class ModelManager : MonoBehaviour
     private Model modelLeft;
     private Model modelRight;
     private Model activeModel;
+    private Model notActiveModel;
     private float screenHalfWidth = 0.5f;
     private void Start()
     {
@@ -22,7 +24,10 @@ public class ModelManager : MonoBehaviour
     {
         if (startPosition.x < screenHalfWidth)
         {
+            modelLeft.IsActiveModel = true;
+            modelRight.IsActiveModel = false;
             activeModel = modelLeft;
+            notActiveModel = modelRight;
             if (offset.y < 0)
             {
                 activeModel.RotateLeft(duration);
@@ -34,7 +39,10 @@ public class ModelManager : MonoBehaviour
         }
         else
         {
+            modelLeft.IsActiveModel = false;
+            modelRight.IsActiveModel = true;
             activeModel = modelRight;
+            notActiveModel = modelLeft;
             if (offset.y < 0)
             {
                 activeModel.RotateRight(duration);
@@ -44,9 +52,8 @@ public class ModelManager : MonoBehaviour
                 activeModel.RotateLeft(duration);
             }
         }
-    }
-    public void CheckIntersection()
-    {
-        //Debug.Log(activeModel.GetIntersectionDiamond(activeModel.GetIntersectionPoints()[0]));
+
+        notActiveModel.GetTopIntersectionDiamond().DiamondConfig = activeModel.GetTopIntersectionDiamond().DiamondConfig;
+        notActiveModel.GetBottomIntersectionDiamond().DiamondConfig = activeModel.GetBottomIntersectionDiamond().DiamondConfig;
     }
 }

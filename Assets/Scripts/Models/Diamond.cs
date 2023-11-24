@@ -4,10 +4,20 @@ using System.Threading.Tasks;
 using UnityEngine;
 namespace Diamonds
 {
-    public partial class Diamond:MonoBehaviour
+    public partial class Diamond : MonoBehaviour
     {
         [SerializeField] private new Renderer renderer;
         private readonly List<MoveStep> moveBuffer = new();
+        private DiamondConfig diamondConfig;
+        public DiamondConfig DiamondConfig
+        {
+            get { return diamondConfig; }
+            set 
+            { 
+                diamondConfig = value;
+                renderer.material.color = value.color;
+            }
+        }
         private void Start()
         {
             Movement();
@@ -32,10 +42,6 @@ namespace Diamonds
 
             await transform.DOLocalMove(step.position, step.duration).AsyncWaitForCompletion();
             Movement();
-        }
-        public void SetConfig(DiamondConfig diamondConfig)
-        {
-            renderer.material.color = diamondConfig.color;
         }
     }
 }

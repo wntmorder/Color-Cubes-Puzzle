@@ -24,6 +24,8 @@ public class Model : MonoBehaviour
         set
         {
             isActiveModel = value;
+            GetTopIntersectionDiamond().gameObject.SetActive(value);
+            GetBottomIntersectionDiamond().gameObject.SetActive(value);
         }
     }
     public void Initialize(ModelSides modelSide, int numberOfObjects, int intersectionDistance)
@@ -74,7 +76,7 @@ public class Model : MonoBehaviour
         for (int i = 0; i < numberOfObjects; i++)
         {
             Diamond diamond = Instantiate(objectPrefab, transform);
-            diamond.SetConfig(diamondsConfig.GetDiamondConfig(i % sideLength == 0 ? 1 : 0));
+            diamond.DiamondConfig = diamondsConfig.GetDiamondConfig(i % sideLength == 0 ? 1 : 0);
             diamond.MoveIn(GetPositionByIndex(i), Time.time);
             Diamonds.Add(diamond);
         }
@@ -92,6 +94,10 @@ public class Model : MonoBehaviour
     private void SetOffset(int value)
     {
         offset = (value % numberOfObjects + numberOfObjects) % numberOfObjects;
+        while (offset < 0)
+        {
+            offset += numberOfObjects;
+        }
     }
     private void UpdateState(float duration)
     {
@@ -105,6 +111,15 @@ public class Model : MonoBehaviour
     {
         return (index + offset) % numberOfObjects;
     }
+    private int CalculateIntersectIndexWithOffset(int index)
+    {
+        int indexWO = (index - offset);
+        while (indexWO < 0)
+        {
+            indexWO += numberOfObjects;
+        }
+        return indexWO % numberOfObjects;
+    }
     public Vector3 GetPositionByIndex(int index)
     {
         int side = Mathf.FloorToInt(index / sideLength);
@@ -116,23 +131,16 @@ public class Model : MonoBehaviour
     {
         return index - (side * sideLength);
     }
-    public int[] GetIntersectionPoints()
+    public Diamond GetTopIntersectionDiamond()
     {
-        return new int[] { topIntersectionIndex, bottomIntersectionIndex };
+        return Diamonds[CalculateIntersectIndexWithOffset(topIntersectionIndex)];
     }
-    public Diamond GetIntersectionDiamond(int intersectionIndex)
+    public Diamond GetBottomIntersectionDiamond()
     {
-        Diamond diamond = new();
-        Vector3 intersectionPosition = GetPositionByIndex(intersectionIndex);
-        for (int i = 0; i < numberOfObjects; i++)
-        {
-            int index = CalculateIndexWithOffset(i);
-            if (GetPositionByIndex(index) == intersectionPosition)
-            {
-                //Debug.Log(i);
-                diamond = Diamonds[i];
-            }
-        }
-        return diamond;
+        return Diamonds[CalculateIntersectIndexWithOffset(bottomIntersectionIndex)];
+    }
+    public Diamond[] GetIntersectionDiamonds()
+    {
+        return new Diamond[2] { GetTopIntersectionDiamond(), GetBottomIntersectionDiamond() };
     }
 }
