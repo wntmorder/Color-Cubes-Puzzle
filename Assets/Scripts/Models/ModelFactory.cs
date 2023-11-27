@@ -4,10 +4,10 @@ using UnityEngine;
 public class ModelFactory:ScriptableObject
 {
     [SerializeField] private Model modelPrefab;
-    public Model CreateModel(int numberOfObjects, Transform parentTransform, ModelSides modelSide, int intersectionDistance)
+    public Model CreateModel(ModelConfig modelConfig, Transform parentTransform, ModelSides modelSide, int intersectionDistance)
     {
         Model model = Instantiate(modelPrefab, parentTransform);
-        model.Initialize(modelSide, numberOfObjects, intersectionDistance);
+        model.Initialize(modelConfig, modelSide, intersectionDistance);
         return model;
     }
 }

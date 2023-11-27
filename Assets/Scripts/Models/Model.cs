@@ -28,9 +28,9 @@ public class Model : MonoBehaviour
             GetBottomIntersectionDiamond().gameObject.SetActive(value);
         }
     }
-    public void Initialize(ModelSides modelSide, int numberOfObjects, int intersectionDistance)
+    public void Initialize(ModelConfig modelConfig, ModelSides modelSide, int intersectionDistance)
     {
-        this.numberOfObjects = numberOfObjects;
+        this.numberOfObjects = modelConfig.Configs.Length;
         transform.Rotate(transform.up * 45f);
         sideLength = Mathf.FloorToInt(numberOfObjects * 0.25f);
         radius = (sideLength * 0.5f) * objectSpacing;
@@ -76,7 +76,7 @@ public class Model : MonoBehaviour
         for (int i = 0; i < numberOfObjects; i++)
         {
             Diamond diamond = Instantiate(objectPrefab, transform);
-            diamond.DiamondConfig = diamondsConfig.GetDiamondConfig(i % sideLength == 0 ? 1 : 0);
+            diamond.DiamondConfig = diamondsConfig.GetDiamondConfig(modelConfig.Configs[i]);
             diamond.MoveIn(GetPositionByIndex(i), Time.time);
             Diamonds.Add(diamond);
         }

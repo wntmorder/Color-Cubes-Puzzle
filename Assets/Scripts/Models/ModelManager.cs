@@ -4,8 +4,9 @@ public class ModelManager : MonoBehaviour
 {
     [SerializeField] private ModelFactory modelFactory;
     [SerializeField] private Transform parentTransform;
-    [SerializeField] private int numberOfObjects = 16;
     [SerializeField] private int intersectionDistance;
+    [SerializeField] private ModelConfig modelLeftConfig;
+    [SerializeField] private ModelConfig modelRightConfig;
     private Model modelLeft;
     private Model modelRight;
     private Model activeModel;
@@ -17,8 +18,8 @@ public class ModelManager : MonoBehaviour
     }
     private void CreateAndPlaceModel()
     {
-        modelLeft = modelFactory.CreateModel(numberOfObjects, parentTransform, ModelSides.Left, intersectionDistance);
-        modelRight = modelFactory.CreateModel(numberOfObjects, parentTransform, ModelSides.Right, intersectionDistance);
+        modelLeft = modelFactory.CreateModel(modelLeftConfig, parentTransform, ModelSides.Left, intersectionDistance);
+        modelRight = modelFactory.CreateModel(modelRightConfig, parentTransform, ModelSides.Right, intersectionDistance);
     }
     public void Rotate(Vector3 startPosition, Vector3 offset, float duration)
     {

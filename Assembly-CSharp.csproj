@@ -66,6 +66,7 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />
     <Compile Include="Assets\Scripts\Models\ModelFactory.cs" />
+    <Compile Include="Assets\Scripts\Configs\ModelConfig.cs" />
     <Compile Include="Assets\Scripts\Models\Diamond.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Scripts\Configs\DiamondConfig.cs" />
