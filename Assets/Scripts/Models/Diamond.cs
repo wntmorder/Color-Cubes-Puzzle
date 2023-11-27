@@ -11,9 +11,9 @@ namespace Diamonds
         private DiamondConfig diamondConfig;
         public DiamondConfig DiamondConfig
         {
-            get { return diamondConfig; }
-            set 
-            { 
+            get => diamondConfig;
+            set
+            {
                 diamondConfig = value;
                 renderer.material.color = value.color;
             }

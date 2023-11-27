@@ -6,7 +6,7 @@ public class ControlLogic : MonoBehaviour
     private Vector3 startSwipePosition = Vector3.zero;
     private Vector3 endSwipePosition = Vector3.zero;
     private Vector3 offset = Vector3.zero;
-    private float swipeZone = 0.05f;
+    private readonly float swipeZone = 0.05f;
     private bool isSwiping = false;
     private float lastSwipeStartTime;
 

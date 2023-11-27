@@ -30,7 +30,7 @@ public class Model : MonoBehaviour
     }
     public void Initialize(ModelConfig modelConfig, ModelSides modelSide, int intersectionDistance)
     {
-        this.numberOfObjects = modelConfig.Configs.Length;
+        numberOfObjects = modelConfig.Configs.Length;
         transform.Rotate(transform.up * 45f);
         sideLength = Mathf.FloorToInt(numberOfObjects * 0.25f);
         radius = (sideLength * 0.5f) * objectSpacing;
@@ -73,6 +73,10 @@ public class Model : MonoBehaviour
             },
         };
 
+        InstantiateDiamonds(modelConfig);
+    }
+    private void InstantiateDiamonds(ModelConfig modelConfig)
+    {
         for (int i = 0; i < numberOfObjects; i++)
         {
             Diamond diamond = Instantiate(objectPrefab, transform);
@@ -120,7 +124,7 @@ public class Model : MonoBehaviour
         }
         return indexWO % numberOfObjects;
     }
-    public Vector3 GetPositionByIndex(int index)
+    private Vector3 GetPositionByIndex(int index)
     {
         int side = Mathf.FloorToInt(index / sideLength);
         SideData sideData = sides[side];
