@@ -3,11 +3,13 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private ModelManager modelManager;
-    [SerializeField] private ModelConfig modelLeftConfig;
-    [SerializeField] private ModelConfig modelRightConfig;
-    [SerializeField] private LevelConfig levelConfig;   //Arrray of LevelConfigs
+    [SerializeField] private LevelConfig[] levelConfigs;
     private void Start()
     {
-        modelManager.CreateAndPlaceModel(modelLeftConfig, modelRightConfig);
+        StartLevel(0);
+    }
+    private void StartLevel(int levelNumber)
+    {
+        modelManager.CreateAndPlaceModel(levelConfigs[levelNumber].ModelLeftConfig, levelConfigs[levelNumber].ModelRightConfig);
     }
 }
