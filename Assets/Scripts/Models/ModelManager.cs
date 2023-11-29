@@ -4,22 +4,18 @@ public class ModelManager : MonoBehaviour
 {
     [SerializeField] private ModelFactory modelFactory;
     [SerializeField] private Transform parentTransform;
-    [SerializeField] private ModelConfig modelLeftConfig;
-    [SerializeField] private ModelConfig modelRightConfig;
     [SerializeField] private int intersectionDistance;
     private Model modelLeft;
     private Model modelRight;
     private Model activeModel;
     private Model notActiveModel;
     private readonly float screenHalfWidth = 0.5f;
-    private void Start()
-    {
-        CreateAndPlaceModel();
-    }
-    private void CreateAndPlaceModel()
+    public void CreateAndPlaceModel(ModelConfig modelLeftConfig, ModelConfig modelRightConfig)
     {
         modelLeft = modelFactory.CreateModel(modelLeftConfig, parentTransform, ModelSides.Left, intersectionDistance);
         modelRight = modelFactory.CreateModel(modelRightConfig, parentTransform, ModelSides.Right, intersectionDistance);
+        SetActiveModel(modelLeft);
+        UpdateIntersectionDiamonds();
     }
     public void Rotate(Vector3 startPosition, Vector3 offset, float duration)
     {

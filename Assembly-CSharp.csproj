@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Models\Model.cs" />
+    <Compile Include="Assets\Scripts\Configs\LevelTask.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Scripts\Controllers\ControlLogic.cs" />
     <Compile Include="Assets\Scripts\Models\SideData.cs" />
@@ -73,6 +74,8 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleSprite.cs" />
     <Compile Include="Assets\Scripts\Configs\Type.cs" />
+    <Compile Include="Assets\Scripts\Configs\LevelConfig.cs" />
+    <Compile Include="Assets\Scripts\Configs\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Models\ModelManager.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
     <Compile Include="Assets\Scripts\Models\ModelSides.cs" />
