@@ -10,6 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abd96e36d9504c040acb6c4e9c502877, type: 3}
-  m_Name: Level(0)Config
+  m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  levelTasks: []
+  levelTasks:
+  - topType: 1
+    bottomType: 0
+  modelLeftConfig: {fileID: 11400000, guid: d27759b0b34cce94c8a4a4c8e56b4557, type: 2}
+  modelRightConfig: {fileID: 11400000, guid: 39e874187fb239040add66fa8b4c0497, type: 2}
