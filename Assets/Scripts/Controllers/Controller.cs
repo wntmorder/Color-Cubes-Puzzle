@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ControlLogic : MonoBehaviour
+public class Controller : MonoBehaviour
 {
     [SerializeField] private ModelManager modelManager;
     private IInputHandler inputHandler;

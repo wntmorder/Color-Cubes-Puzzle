@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ModelManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class ModelManager : MonoBehaviour
     private Model modelRight;
     private Model activeModel;
     private Model notActiveModel;
+    public event Action ModelRotated;
     private readonly float screenHalfWidth = 0.5f;
     public void CreateAndPlaceModel(ModelConfig modelLeftConfig, ModelConfig modelRightConfig)
     {
@@ -42,10 +44,20 @@ public class ModelManager : MonoBehaviour
         {
             activeModel.RotateRight(duration);
         }
+
+        ModelRotated?.Invoke();
     }
     private void UpdateIntersectionDiamonds()
     {
         notActiveModel.GetTopIntersectionDiamond().DiamondConfig = activeModel.GetTopIntersectionDiamond().DiamondConfig;
         notActiveModel.GetBottomIntersectionDiamond().DiamondConfig = activeModel.GetBottomIntersectionDiamond().DiamondConfig;
+    }
+    public Diamonds.Type[] GetActiveModelIntersectionTypes()
+    {
+        return new Diamonds.Type[]
+        {
+            activeModel.GetTopIntersectionDiamond().DiamondConfig.type,
+            activeModel.GetBottomIntersectionDiamond().DiamondConfig.type
+        };
     }
 }
