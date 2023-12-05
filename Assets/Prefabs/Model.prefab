@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diamondsConfig: {fileID: 11400000, guid: 37ec144a9d1d5444d9b18909884b07c9, type: 2}
-  objectPrefab: {fileID: 8550046452697295765, guid: 4061f8ed1007e0e4085cdb4888c3c762,
+  objectPrefab: {fileID: 538780142015976471, guid: e8d354ebf635bad48a9e5a5c217cde68,
     type: 3}
-  objectSpacing: 0.75
-  rotateDuration: 1
+  objectSpacing: 1
