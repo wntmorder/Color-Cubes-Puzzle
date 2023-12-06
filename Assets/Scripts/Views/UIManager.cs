@@ -1,27 +1,35 @@
-using Diamonds;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private DiamondsConfig diamondsConfig;
-    [SerializeField] private Image prefab;
-    [SerializeField] private Transform parent;
+    [SerializeField] private LevelManager levelManager;
     [SerializeField] private TextMeshProUGUI text;
-    public Transform ParentTransform => parent;
-    public void DisplayTask(LevelTask task)
+    [SerializeField] private TaskView taskView;
+    private void Start()
     {
-        CreateAndPlaceTask(task.topType);
-        CreateAndPlaceTask(task.bottomType);
+        levelManager.LevelChanged += OnLevelChanged;
+        taskView.gameObject.SetActive(true);
+        OnLevelChanged(0);
     }
-    private void CreateAndPlaceTask(Type type)
+    private void OnLevelChanged(int levelNumber)
     {
-        Image currentTask = Instantiate(prefab, parent);
-        currentTask.transform.Rotate(new Vector3(0f, 0f, 45f));
-        currentTask.color = diamondsConfig.GetDiamondConfig(type).color;
-
-        text.gameObject.SetActive(false);
+        if (levelNumber < levelManager.LevelConfigs.Length)
+        {
+            DisplayTask(levelManager.LevelConfigs[levelNumber].LevelTasks[levelManager.CurrentTaskIndex]);
+        }
+        if (levelNumber == levelManager.LevelConfigs.Length)
+        {
+            LevelComplete();
+        }
     }
-    public void LevelComplete() => text.gameObject.SetActive(true);
+    private void DisplayTask(LevelTask task)
+    {
+        taskView.DisplayTask(task.topType, task.bottomType);
+    }
+    private void LevelComplete()
+    {
+        text.gameObject.SetActive(true);
+        taskView.gameObject.SetActive(false);
+    }
 }

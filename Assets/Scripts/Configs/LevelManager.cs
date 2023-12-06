@@ -1,12 +1,14 @@
+using System;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private ModelManager modelManager;
-    [SerializeField] private UIManager uiManager;
     [SerializeField] private LevelConfig[] levelConfigs;
     private int levelNumber = 0;
-    private int currentTaskIndex = 0;
+    public event Action<int> LevelChanged;
+    public LevelConfig[] LevelConfigs => levelConfigs;
+    public int CurrentTaskIndex { get; private set; } = 0;
     private void Start()
     {
         modelManager.ModelRotated += OnModelRotated;
@@ -14,29 +16,21 @@ public class LevelManager : MonoBehaviour
     }
     private void StartLevel(int levelNumber)
     {
-        uiManager.DisplayTask(levelConfigs[levelNumber].LevelTasks[0]);
+        LevelChanged?.Invoke(levelNumber);
         modelManager.CreateAndPlaceModel(levelConfigs[levelNumber].ModelLeftConfig, levelConfigs[levelNumber].ModelRightConfig);
     }
     private void OnModelRotated()
     {
-        Diamonds.Type[] activeModelIntersectionTypes = modelManager.GetActiveModelIntersectionTypes();
-        LevelTask currentTask = levelConfigs[levelNumber].LevelTasks[currentTaskIndex];
-        if (currentTask.topType == activeModelIntersectionTypes[0] && currentTask.bottomType == activeModelIntersectionTypes[1])
+        if (levelConfigs[levelNumber].LevelTasks[CurrentTaskIndex].topType == modelManager.GetActiveModelIntersectionTypes()[0]
+        && levelConfigs[levelNumber].LevelTasks[CurrentTaskIndex].bottomType == modelManager.GetActiveModelIntersectionTypes()[1])
         {
-            for (int i = 0; i < uiManager.ParentTransform.transform.childCount; i++)
-            {
-                Destroy(uiManager.ParentTransform.transform.GetChild(i).gameObject);
-            }
+            CurrentTaskIndex++;
+            LevelChanged?.Invoke(levelNumber);
 
-            currentTaskIndex++;
-
-            if(currentTaskIndex != levelConfigs[levelNumber].LevelTasks.Length)
+            if (CurrentTaskIndex == levelConfigs[levelNumber].LevelTasks.Length)
             {
-                uiManager.DisplayTask(levelConfigs[levelNumber].LevelTasks[currentTaskIndex]);
-            }
-            else
-            {
-                uiManager.LevelComplete();
+                levelNumber++;
+                StartLevel(levelNumber);
             }
         }
     }
