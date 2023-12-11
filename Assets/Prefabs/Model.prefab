@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f5a3434a13bd74f9e0d0e4f96dba75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diamondsConfig: {fileID: 11400000, guid: 37ec144a9d1d5444d9b18909884b07c9, type: 2}
+  ModelObjectsConfig: {fileID: 11400000, guid: 37ec144a9d1d5444d9b18909884b07c9, type: 2}
   objectPrefab: {fileID: 538780142015976471, guid: e8d354ebf635bad48a9e5a5c217cde68,
     type: 3}
   objectSpacing: 1

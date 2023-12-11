@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4239692fe1dccac4799c2d20ab33d76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diamondsConfig: {fileID: 11400000, guid: 37ec144a9d1d5444d9b18909884b07c9, type: 2}
-  topDiamond: {fileID: 3782759731752400350}
-  bottomDiamond: {fileID: 3285947800738900441}
+  ModelObjectsConfig: {fileID: 11400000, guid: 37ec144a9d1d5444d9b18909884b07c9, type: 2}
+  topModelObject: {fileID: 3782759731752400350}
+  bottomModelObject: {fileID: 3285947800738900441}
 --- !u!1 &6050420730247663567
 GameObject:
   m_ObjectHideFlags: 0
