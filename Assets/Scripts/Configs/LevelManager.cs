@@ -5,14 +5,14 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private ModelManager modelManager;
     [SerializeField] private LevelConfig[] levelConfigs;
-    private int levelNumber = 0;
     public event Action<int> LevelChanged;
     public LevelConfig[] LevelConfigs => levelConfigs;
+    public int LevelNumber { get; private set; } = 0;
     public int CurrentTaskIndex { get; private set; } = 0;
     private void Start()
     {
         modelManager.ModelRotated += OnModelRotated;
-        StartLevel(levelNumber);
+        StartLevel(LevelNumber);
     }
     private void StartLevel(int levelNumber)
     {
@@ -21,16 +21,17 @@ public class LevelManager : MonoBehaviour
     }
     private void OnModelRotated()
     {
-        if (levelConfigs[levelNumber].LevelTasks[CurrentTaskIndex].topType == modelManager.GetActiveModelIntersectionTypes()[0]
-        && levelConfigs[levelNumber].LevelTasks[CurrentTaskIndex].bottomType == modelManager.GetActiveModelIntersectionTypes()[1])
+        if (levelConfigs[LevelNumber].LevelTasks[CurrentTaskIndex].topType == modelManager.GetActiveModelIntersectionTypes()[0]
+        && levelConfigs[LevelNumber].LevelTasks[CurrentTaskIndex].bottomType == modelManager.GetActiveModelIntersectionTypes()[1])
         {
             CurrentTaskIndex++;
-            LevelChanged?.Invoke(levelNumber);
+            LevelChanged?.Invoke(LevelNumber);
 
-            if (CurrentTaskIndex == levelConfigs[levelNumber].LevelTasks.Length)
+            if (CurrentTaskIndex >= levelConfigs[LevelNumber].LevelTasks.Length)
             {
-                levelNumber++;
-                StartLevel(levelNumber);
+                CurrentTaskIndex = 0;
+                LevelNumber++;
+                StartLevel(LevelNumber);
             }
         }
     }

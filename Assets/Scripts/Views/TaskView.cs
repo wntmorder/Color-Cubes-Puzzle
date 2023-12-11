@@ -1,15 +1,16 @@
-﻿using Diamonds;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TaskView : MonoBehaviour
 {
-    [SerializeField] private DiamondsConfig diamondsConfig;
-    [SerializeField] private Image topDiamond;
-    [SerializeField] private Image bottomDiamond;
-    public void DisplayTask(Type topType, Type bottomType)
+    [SerializeField] private ModelObjectsConfig ModelObjectsConfig;
+    [SerializeField] private Image topModelObject;
+    [SerializeField] private Image bottomModelObject;
+    private readonly float duration = 0.5f;
+    public void DisplayTask(ModelObjectType topType, ModelObjectType bottomType)
     {
-        topDiamond.color = diamondsConfig.GetDiamondConfig(topType).color;
-        bottomDiamond.color = diamondsConfig.GetDiamondConfig(bottomType).color;
+        topModelObject.DOColor(ModelObjectsConfig.GetModelObjectConfig(topType).color, duration);
+        bottomModelObject.DOColor(ModelObjectsConfig.GetModelObjectConfig(bottomType).color, duration);
     }
 }

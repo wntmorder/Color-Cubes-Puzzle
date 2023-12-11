@@ -1,0 +1,45 @@
+﻿using UnityEngine;
+using DG.Tweening;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public partial class ModelObject : MonoBehaviour
+{
+    [SerializeField] private new Renderer renderer;
+    private readonly List<MoveStep> moveBuffer = new();
+    private ModelObjectConfig modelObjectConfig;
+    public ModelObjectConfig ModelObjectConfig
+    {
+        get => modelObjectConfig;
+        set
+        {
+            modelObjectConfig = value;
+            renderer.material.color = value.color;
+        }
+    }
+    private void Start()
+    {
+        Movement();
+    }
+    public void MoveIn(Vector3 position, float duration)
+    {
+        moveBuffer.Add(new MoveStep { 
+            position = position,
+            duration = duration
+        });
+    }
+    private async void Movement()
+    {
+        if (moveBuffer.Count < 1)
+        {
+            await Task.Yield();
+            Movement();
+            return;
+        }
+        MoveStep step = moveBuffer[0];
+        moveBuffer.RemoveAt(0);
+
+        await transform.DOLocalMove(step.position, step.duration).AsyncWaitForCompletion();
+        Movement();
+    }
+}

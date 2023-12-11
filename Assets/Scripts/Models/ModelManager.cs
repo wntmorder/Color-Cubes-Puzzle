@@ -12,12 +12,18 @@ public class ModelManager : MonoBehaviour
     private Model notActiveModel;
     public event Action ModelRotated;
     private readonly float screenHalfWidth = 0.5f;
+    private enum SwipeState
+    {
+        NotSwiping,
+        Swiping
+    }
+    private SwipeState swipeState = SwipeState.NotSwiping;
     public void CreateAndPlaceModel(ModelConfig modelLeftConfig, ModelConfig modelRightConfig)
     {
         modelLeft = modelFactory.CreateModel(modelLeftConfig, parentTransform, ModelSides.Left, intersectionDistance);
         modelRight = modelFactory.CreateModel(modelRightConfig, parentTransform, ModelSides.Right, intersectionDistance);
         SetActiveModel(modelLeft);
-        UpdateIntersectionDiamonds();
+        UpdateIntersectionModelObjects();
     }
     public void Rotate(Vector3 startPosition, Vector3 offset, float duration)
     {
@@ -25,7 +31,7 @@ public class ModelManager : MonoBehaviour
 
         RotateActiveModel(offset.y, duration);
 
-        UpdateIntersectionDiamonds();
+        UpdateIntersectionModelObjects();
     }
     private void SetActiveModel(Model model)
     {
@@ -44,20 +50,26 @@ public class ModelManager : MonoBehaviour
         {
             activeModel.RotateRight(duration);
         }
-
-        ModelRotated?.Invoke();
-    }
-    private void UpdateIntersectionDiamonds()
-    {
-        notActiveModel.GetTopIntersectionDiamond().DiamondConfig = activeModel.GetTopIntersectionDiamond().DiamondConfig;
-        notActiveModel.GetBottomIntersectionDiamond().DiamondConfig = activeModel.GetBottomIntersectionDiamond().DiamondConfig;
-    }
-    public Diamonds.Type[] GetActiveModelIntersectionTypes()
-    {
-        return new Diamonds.Type[]
+        if (swipeState == SwipeState.Swiping)
         {
-            activeModel.GetTopIntersectionDiamond().DiamondConfig.type,
-            activeModel.GetBottomIntersectionDiamond().DiamondConfig.type
+            ModelRotated?.Invoke();
+        }
+    }
+    private void UpdateIntersectionModelObjects()
+    {
+        notActiveModel.GetTopIntersectionModelObject().ModelObjectConfig = activeModel.GetTopIntersectionModelObject().ModelObjectConfig;
+        notActiveModel.GetBottomIntersectionModelObject().ModelObjectConfig = activeModel.GetBottomIntersectionModelObject().ModelObjectConfig;
+    }
+    public ModelObjectType[] GetActiveModelIntersectionTypes()
+    {
+        return new ModelObjectType[]
+        {
+            activeModel.GetTopIntersectionModelObject().ModelObjectConfig.type,
+            activeModel.GetBottomIntersectionModelObject().ModelObjectConfig.type
         };
+    }
+    public void UpdateSwipeState(bool isSwiping)
+    {
+        swipeState = isSwiping ? SwipeState.Swiping : SwipeState.NotSwiping;
     }
 }

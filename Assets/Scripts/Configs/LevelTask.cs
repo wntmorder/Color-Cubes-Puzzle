@@ -3,6 +3,6 @@
 [Serializable]
 public struct LevelTask
 {
-    public Diamonds.Type topType; 
-    public Diamonds.Type bottomType;
+    public ModelObjectType topType; 
+    public ModelObjectType bottomType;
 }

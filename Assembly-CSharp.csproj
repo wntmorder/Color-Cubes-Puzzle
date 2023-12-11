@@ -62,28 +62,28 @@
     <Compile Include="Assets\Scripts\Models\Model.cs" />
     <Compile Include="Assets\Scripts\Configs\LevelTask.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleAudio.cs" />
+    <Compile Include="Assets\Scripts\Configs\ModelObjectsConfig.cs" />
     <Compile Include="Assets\Scripts\Models\SideData.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />
+    <Compile Include="Assets\Scripts\Configs\ModelObjectConfig.cs" />
     <Compile Include="Assets\Scripts\Models\ModelFactory.cs" />
     <Compile Include="Assets\Scripts\Configs\ModelConfig.cs" />
     <Compile Include="Assets\Scripts\Controllers\Controller.cs" />
-    <Compile Include="Assets\Scripts\Models\Diamond.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Scripts\Views\TaskView.cs" />
-    <Compile Include="Assets\Scripts\Configs\DiamondConfig.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleSprite.cs" />
-    <Compile Include="Assets\Scripts\Configs\Type.cs" />
     <Compile Include="Assets\Scripts\Configs\LevelConfig.cs" />
+    <Compile Include="Assets\Scripts\Models\ModelObject.cs" />
     <Compile Include="Assets\Scripts\Views\UIManager.cs" />
     <Compile Include="Assets\Scripts\Configs\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Models\ModelManager.cs" />
+    <Compile Include="Assets\Scripts\Configs\ModelObjectType.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
     <Compile Include="Assets\Scripts\Models\ModelSides.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUtils.cs" />
     <Compile Include="Assets\Scripts\Models\MoveStep.cs" />
-    <Compile Include="Assets\Scripts\Configs\DiamondsConfig.cs" />
     <Compile Include="Assets\Scripts\Controllers\InputFactory.cs" />
   </ItemGroup>
   <ItemGroup>

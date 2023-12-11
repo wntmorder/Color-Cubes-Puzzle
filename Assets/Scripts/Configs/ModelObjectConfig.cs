@@ -2,8 +2,8 @@
 using UnityEngine;
 
 [Serializable]
-public struct DiamondConfig
+public struct ModelObjectConfig
 {
-    public Diamonds.Type type;
+    public ModelObjectType type;
     public Color color;
 }

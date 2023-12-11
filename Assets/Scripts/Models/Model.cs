@@ -1,14 +1,13 @@
-using Diamonds;
 using UnityEngine;
 using System.Collections.Generic;
 
 public class Model : MonoBehaviour
 {
-    [SerializeField] private DiamondsConfig diamondsConfig;
-    [SerializeField] private Diamond objectPrefab;
+    [SerializeField] private ModelObjectsConfig ModelObjectsConfig;
+    [SerializeField] private ModelObject objectPrefab;
     [SerializeField] private float objectSpacing = 0.75f;
     private int numberOfObjects;
-    private List<Diamond> Diamonds = new();
+    private readonly List<ModelObject> modelObjects = new();
 
     private int sideLength;
     private int offset = 0;
@@ -24,8 +23,8 @@ public class Model : MonoBehaviour
         set
         {
             isActiveModel = value;
-            GetTopIntersectionDiamond().gameObject.SetActive(value);
-            GetBottomIntersectionDiamond().gameObject.SetActive(value);
+            GetTopIntersectionModelObject().gameObject.SetActive(value);
+            GetBottomIntersectionModelObject().gameObject.SetActive(value);
         }
     }
     public void Initialize(ModelConfig modelConfig, ModelSides modelSide, int intersectionDistance)
@@ -73,16 +72,16 @@ public class Model : MonoBehaviour
             },
         };
 
-        InstantiateDiamonds(modelConfig);
+        InstantiateModelObjects(modelConfig);
     }
-    private void InstantiateDiamonds(ModelConfig modelConfig)
+    private void InstantiateModelObjects(ModelConfig modelConfig)
     {
         for (int i = 0; i < numberOfObjects; i++)
         {
-            Diamond diamond = Instantiate(objectPrefab, transform);
-            diamond.DiamondConfig = diamondsConfig.GetDiamondConfig(modelConfig.Configs[i]);
-            diamond.MoveIn(GetPositionByIndex(i), Time.time);
-            Diamonds.Add(diamond);
+            ModelObject ModelObject = Instantiate(objectPrefab, transform);
+            ModelObject.ModelObjectConfig = ModelObjectsConfig.GetModelObjectConfig(modelConfig.Configs[i]);
+            ModelObject.MoveIn(GetPositionByIndex(i), Time.time);
+            modelObjects.Add(ModelObject);
         }
     }
     public void RotateLeft(float duration)
@@ -108,7 +107,7 @@ public class Model : MonoBehaviour
         for (int i = 0; i < numberOfObjects; i++)
         {
             int index = CalculateIndexWithOffset(i);
-            Diamonds[i].MoveIn(GetPositionByIndex(index), duration);
+            modelObjects[i].MoveIn(GetPositionByIndex(index), duration);
         }
     }
     private int CalculateIndexWithOffset(int index)
@@ -135,16 +134,16 @@ public class Model : MonoBehaviour
     {
         return index - (side * sideLength);
     }
-    public Diamond GetTopIntersectionDiamond()
+    public ModelObject GetTopIntersectionModelObject()
     {
-        return Diamonds[CalculateIntersectIndexWithOffset(topIntersectionIndex)];
+        return modelObjects[CalculateIntersectIndexWithOffset(topIntersectionIndex)];
     }
-    public Diamond GetBottomIntersectionDiamond()
+    public ModelObject GetBottomIntersectionModelObject()
     {
-        return Diamonds[CalculateIntersectIndexWithOffset(bottomIntersectionIndex)];
+        return modelObjects[CalculateIntersectIndexWithOffset(bottomIntersectionIndex)];
     }
-    public Diamond[] GetIntersectionDiamonds()
+    public ModelObject[] GetIntersectionModelObjects()
     {
-        return new Diamond[2] { GetTopIntersectionDiamond(), GetBottomIntersectionDiamond() };
+        return new ModelObject[2] { GetTopIntersectionModelObject(), GetBottomIntersectionModelObject() };
     }
 }

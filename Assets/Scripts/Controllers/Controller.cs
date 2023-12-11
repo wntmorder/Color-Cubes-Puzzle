@@ -21,6 +21,7 @@ public class Controller : MonoBehaviour
     private void OnSwipeStart(Vector3 startPosition)
     {
         isSwiping = true;
+        modelManager.UpdateSwipeState(isSwiping);
         lastSwipeStartTime = Time.time;
         startSwipePosition = startPosition;
     }
@@ -33,6 +34,7 @@ public class Controller : MonoBehaviour
     private void OnSwipeEnd(Vector3 endPosition)
     {
         isSwiping = false;
+        modelManager.UpdateSwipeState(isSwiping);
         endSwipePosition = endPosition;
     }
     private void Update()
