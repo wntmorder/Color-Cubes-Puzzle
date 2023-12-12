@@ -59,8 +59,10 @@
     <Analyzer Include="D:\2022.3.12f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Views\CloseButton.cs" />
     <Compile Include="Assets\Scripts\Models\Model.cs" />
     <Compile Include="Assets\Scripts\Configs\LevelTask.cs" />
+    <Compile Include="Assets\Scripts\Views\NextLevelButton.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Scripts\Configs\ModelObjectsConfig.cs" />
     <Compile Include="Assets\Scripts\Models\SideData.cs" />
@@ -737,9 +739,6 @@
     </Reference>
     <Reference Include="Unity.Notifications">
       <HintPath>Library\ScriptAssemblies\Unity.Notifications.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>

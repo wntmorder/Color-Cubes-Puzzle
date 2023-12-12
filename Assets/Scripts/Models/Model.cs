@@ -5,9 +5,10 @@ public class Model : MonoBehaviour
 {
     [SerializeField] private ModelObjectsConfig ModelObjectsConfig;
     [SerializeField] private ModelObject objectPrefab;
-    [SerializeField] private float objectSpacing = 0.75f;
+    [SerializeField] private float objectSpacing;
     private int numberOfObjects;
     private readonly List<ModelObject> modelObjects = new();
+    public List<ModelObject> ModelObjects { get => modelObjects; }
 
     private int sideLength;
     private int offset = 0;
@@ -80,7 +81,7 @@ public class Model : MonoBehaviour
         {
             ModelObject ModelObject = Instantiate(objectPrefab, transform);
             ModelObject.ModelObjectConfig = ModelObjectsConfig.GetModelObjectConfig(modelConfig.Configs[i]);
-            ModelObject.MoveIn(GetPositionByIndex(i), Time.time);
+            ModelObject.MoveIn(GetPositionByIndex(i), 0f);
             modelObjects.Add(ModelObject);
         }
     }

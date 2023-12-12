@@ -1,5 +1,7 @@
 ﻿public enum ModelObjectType
 {
-    Yellow,
-    Rose
+    Green,
+    Purple,
+    Rose,
+    Yellow
 }

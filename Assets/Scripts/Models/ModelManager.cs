@@ -72,4 +72,14 @@ public class ModelManager : MonoBehaviour
     {
         swipeState = isSwiping ? SwipeState.Swiping : SwipeState.NotSwiping;
     }
+    public void ClearAllModels()
+    {
+        activeModel.ModelObjects.Clear();
+        notActiveModel.ModelObjects.Clear();
+
+        for (int i = 0; i < parentTransform.childCount; i++)
+        {
+            Destroy(parentTransform.GetChild(i).gameObject);
+        }
+    }
 }

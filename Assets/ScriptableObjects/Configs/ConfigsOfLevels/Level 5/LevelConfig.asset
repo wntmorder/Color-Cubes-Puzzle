@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelTasks:
   - topType: 1
-    bottomType: 0
-  - topType: 0
-    bottomType: 0
-  - topType: 1
+    bottomType: 2
+  - topType: 3
     bottomType: 1
-  - topType: 0
-    bottomType: 1
+  - topType: 2
+    bottomType: 3
   - topType: 1
-    bottomType: 0
-  modelLeftConfig: {fileID: 11400000, guid: d27759b0b34cce94c8a4a4c8e56b4557, type: 2}
-  modelRightConfig: {fileID: 11400000, guid: 39e874187fb239040add66fa8b4c0497, type: 2}
+    bottomType: 3
+  - topType: 2
+    bottomType: 2
+  modelLeftConfig: {fileID: 11400000, guid: a5c374e0d4353a2439325f518850f679, type: 2}
+  modelRightConfig: {fileID: 11400000, guid: faaad2755031f9c43a72dba444504ced, type: 2}
