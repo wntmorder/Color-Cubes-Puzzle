@@ -15,7 +15,7 @@ Two rhombuses, each filled with cubes of various colors, intersect at two points
 
 ## Dependencies
 - Unity version: [2022.3.12f1](https://unity.com/releases/editor/whats-new/2022.3.12)
-- [DOTween](https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676): A fast, efficient, fully type-safe object-oriented animation engine for Unity.
+- [DOTween](https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676) (DOTween is a fast, efficient, fully type-safe object-oriented animation engine for Unity).
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
