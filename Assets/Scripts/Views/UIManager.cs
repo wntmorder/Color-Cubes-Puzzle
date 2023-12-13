@@ -18,19 +18,19 @@ public class UIManager : MonoBehaviour
     private readonly float maxFadeValue = 1.0f;
     private readonly float duration = 0.5f;
     private readonly float movePopUpDuration = 1.5f;
-    private readonly Vector3 defaultPosition = new Vector3(240f, 400f, 0f);
+    private readonly Vector3 movePopUpPosition = new(0f, 1000f, 0f);
+    private readonly Vector3 canvasPosition = new(240f, 400f, 0f);
 
     private void Start()
     {
         levelManager.LevelChanged += OnLevelChanged;
         StartLevel();
     }
-    public void StartLevel()
+    private void StartLevel()
     {
-        MovePopup(levelWinPopUp, new Vector3(240f, -800f, 0f));
         if (levelManager.LevelNumber >= levelManager.LevelConfigs.Length - 1)
         {
-            MovePopup(levelsCompletePopUp, defaultPosition);
+            MovePopup(levelsCompletePopUp, canvasPosition);
             return;
         }
         levelManager.StartNewLevel();
@@ -80,7 +80,7 @@ public class UIManager : MonoBehaviour
     private void LevelComplete()
     {
         levelNumberText.DOFade(0f, duration);
-        MovePopup(levelWinPopUp, defaultPosition);
+        MovePopup(levelWinPopUp, canvasPosition);
         controller.gameObject.SetActive(false);
         for (int i = 0; i < tasksContainer.childCount; i++)
         {
@@ -88,9 +88,14 @@ public class UIManager : MonoBehaviour
         }
         taskViews.Clear();
     }
+    public void StartNewLevel()
+    {
+        MovePopup(levelWinPopUp, canvasPosition - movePopUpPosition);
+        StartLevel();
+    }
     public void CloseGame()
     {
-        MovePopup(levelsCompletePopUp, new Vector3(240f, 1200f, 0f));
+        MovePopup(levelsCompletePopUp, canvasPosition + movePopUpPosition);
         Application.Quit();
     }
 }

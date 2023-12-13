@@ -19,8 +19,8 @@ MonoBehaviour:
     bottomType: 2
   - topType: 2
     bottomType: 3
-  - topType: 3
-    bottomType: 3
+  - topType: 2
+    bottomType: 2
   - topType: 2
     bottomType: 3
   modelLeftConfig: {fileID: 11400000, guid: 07b1008aa7def564b9f2e12cc6ce47d5, type: 2}

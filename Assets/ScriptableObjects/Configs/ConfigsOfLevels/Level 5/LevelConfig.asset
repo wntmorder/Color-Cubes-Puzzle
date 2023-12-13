@@ -17,9 +17,9 @@ MonoBehaviour:
     bottomType: 2
   - topType: 3
     bottomType: 1
-  - topType: 2
-    bottomType: 3
   - topType: 1
+    bottomType: 3
+  - topType: 3
     bottomType: 3
   - topType: 2
     bottomType: 2
