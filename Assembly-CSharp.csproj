@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Views\NextLevelButton.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Scripts\Configs\ModelObjectsConfig.cs" />
+    <Compile Include="Assets\Scripts\Views\SceneManager.cs" />
     <Compile Include="Assets\Scripts\Models\SideData.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\Scripts\Configs\ModelObjectType.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
     <Compile Include="Assets\Scripts\Models\ModelSides.cs" />
+    <Compile Include="Assets\Scripts\Views\StartButton.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUtils.cs" />
     <Compile Include="Assets\Scripts\Models\MoveStep.cs" />
     <Compile Include="Assets\Scripts\Controllers\InputFactory.cs" />
