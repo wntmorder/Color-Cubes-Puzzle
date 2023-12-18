@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelConfig[] levelConfigs;
     public event Action<int> LevelChanged;
     public LevelConfig[] LevelConfigs => levelConfigs;
-    public int LevelNumber { get; set; } = 0;
+    public int LevelNumber { get; private set; } = 0;
     public int CurrentTaskIndex { get; private set; } = 0;
     private void Start()
     {

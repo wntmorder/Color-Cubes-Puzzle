@@ -7,6 +7,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private LevelManager levelManager;
+    [SerializeField] private Canvas canvas;
     [SerializeField] private TaskView taskViewPrefab;
     [SerializeField] private Transform tasksContainer;
     [SerializeField] private Controller controller;
@@ -16,10 +17,8 @@ public class UIManager : MonoBehaviour
     private readonly List<TaskView> taskViews = new();
     private readonly float minFadeValue = 0.25f;
     private readonly float maxFadeValue = 1.0f;
-    private readonly float duration = 0.5f;
-    private readonly float movePopUpDuration = 1.5f;
-    private readonly Vector3 movePopUpPosition = new(0f, 1000f, 0f);
-    private readonly Vector3 canvasPosition = new(240f, 400f, 0f);
+    private readonly float duration = 1.15f;
+    private readonly Vector3 movePopUpPosition = new(0f, 1800f, 0f);
 
     private void Start()
     {
@@ -30,7 +29,7 @@ public class UIManager : MonoBehaviour
     {
         if (levelManager.LevelNumber >= levelManager.LevelConfigs.Length - 1)
         {
-            MovePopup(levelsCompletePopUp, canvasPosition);
+            MovePopup(levelsCompletePopUp, canvas.transform.position);
             return;
         }
         levelManager.StartNewLevel();
@@ -75,12 +74,12 @@ public class UIManager : MonoBehaviour
     }
     private void MovePopup(GameObject popup, Vector3 position)
     {
-        popup.transform.DOMove(position, movePopUpDuration);
+        popup.transform.DOMove(position, duration);
     }
     private void LevelComplete()
     {
         levelNumberText.DOFade(0f, duration);
-        MovePopup(levelWinPopUp, canvasPosition);
+        MovePopup(levelWinPopUp, canvas.transform.position);
         controller.gameObject.SetActive(false);
         for (int i = 0; i < tasksContainer.childCount; i++)
         {
@@ -90,12 +89,12 @@ public class UIManager : MonoBehaviour
     }
     public void StartNewLevel()
     {
-        MovePopup(levelWinPopUp, canvasPosition - movePopUpPosition);
+        MovePopup(levelWinPopUp, canvas.transform.position - movePopUpPosition);
         StartLevel();
     }
     public void CloseGame()
     {
-        MovePopup(levelsCompletePopUp, canvasPosition + movePopUpPosition);
+        MovePopup(levelsCompletePopUp, canvas.transform.position + movePopUpPosition);
         Application.Quit();
     }
 }
