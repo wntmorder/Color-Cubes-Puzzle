@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public partial class ModelObject : MonoBehaviour
 {
-    [SerializeField] private new Renderer renderer;
+    [SerializeField] private Renderer _renderer;
     private readonly List<MoveStep> moveBuffer = new();
     private ModelObjectConfig modelObjectConfig;
     public ModelObjectConfig ModelObjectConfig
@@ -14,7 +14,7 @@ public partial class ModelObject : MonoBehaviour
         set
         {
             modelObjectConfig = value;
-            renderer.material.color = value.color;
+            _renderer.material.color = value.color;
         }
     }
     private void Start()

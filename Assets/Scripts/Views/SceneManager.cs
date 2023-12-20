@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using System.Collections;
 
@@ -22,15 +21,15 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void LoadScene(SceneAsset scene)
+    public void LoadScene(string sceneName)
     {
-        StartCoroutine(LoadSceneAsync(scene));
+        StartCoroutine(LoadSceneAsync(sceneName));
     }
 
-    private IEnumerator LoadSceneAsync(SceneAsset scene)
+    private IEnumerator LoadSceneAsync(string sceneName)
     {
         loadingScreen.SetActive(true);
-        AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene.name);
+        AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress);

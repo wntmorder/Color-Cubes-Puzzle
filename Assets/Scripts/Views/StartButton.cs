@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using UnityEditor;
 
 public class StartButton : MonoBehaviour 
 {
@@ -13,9 +12,9 @@ public class StartButton : MonoBehaviour
         upScale = new Vector3(1.1f, 1.1f, 1f);
         button = gameObject.GetComponent<Button>();
     }
-    public void LoadScene(SceneAsset scene)
+    public void LoadScene(string sceneName)
     {
-        SceneManager.instance.LoadScene(scene);
+        SceneManager.instance.LoadScene(sceneName);
     }
     public void PointerEnter() => button.gameObject.transform.DOScale(upScale, 1f);
     public void PointerExit() => button.gameObject.transform.DOScale(Vector3.one, 1f).SetDelay(0.1f);

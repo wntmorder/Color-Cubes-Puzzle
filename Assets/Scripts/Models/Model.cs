@@ -55,19 +55,19 @@ public class Model : MonoBehaviour
         Vector3 modelOffset = new(modelOffsetValue, 0f, modelOffsetValue);
 
         sides = new SideData[] {
-            new SideData {
+            new() {
                 StartPosition = new Vector3(radius, 0f, radius) + modelOffset,
                 Direction = new Vector3(0f, 0f, -objectSpacing),
             },
-            new SideData {
+            new() {
                 StartPosition = new Vector3(radius, 0f, -radius) + modelOffset,
                 Direction = new Vector3(-objectSpacing, 0f, 0f),
             },
-            new SideData {
+            new() {
                 StartPosition = new Vector3(-radius, 0f, -radius) + modelOffset,
                 Direction = new Vector3(0f, 0f, objectSpacing),
             },
-            new SideData {
+            new() {
                 StartPosition = new Vector3(-radius, 0f, radius) + modelOffset,
                 Direction = new Vector3(objectSpacing, 0f, 0f),
             },
