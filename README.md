@@ -1,7 +1,7 @@
-# Game Project
+# Color Cubes Puzzle
 
 ## Description
-In this game, two rhombuses, each filled with cubes of various colors, intersect at two points. The cubes at these intersections can be relocated to either rhombus by rotating them clockwise or counterclockwise. By swiping your finger on the left side of the screen, you rotate the left rhombus, and on the right side, you rotate the right rhombus. The challenge is to place the cubes matching the task at the two intersection points.
+Color Cubes Puzzle is an interactive Unity game where players manipulate two rhombuses filled with colored cubes. The rhombuses intersect at two points, and the cubes at these intersections can be moved between the rhombuses by rotating them clockwise or counterclockwise. Players swipe on the left side of the screen to rotate the left rhombus and on the right side to rotate the right rhombus. The objective is to strategically place the cubes to match the specified colors at the intersection points.
 
 ## How to Play
 - Rotate the left rhombus by swiping on the left side of the screen.
