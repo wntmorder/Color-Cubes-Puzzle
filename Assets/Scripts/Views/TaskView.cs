@@ -8,9 +8,23 @@ public class TaskView : MonoBehaviour
     [SerializeField] private Image topModelObject;
     [SerializeField] private Image bottomModelObject;
     private readonly float duration = 0.5f;
+
     public void DisplayTask(ModelObjectType topType, ModelObjectType bottomType)
     {
         topModelObject.DOColor(ModelObjectsConfig.GetModelObjectConfig(topType).color, duration);
         bottomModelObject.DOColor(ModelObjectsConfig.GetModelObjectConfig(bottomType).color, duration);
+    }
+
+    private void OnDestroy()
+    {
+        if (topModelObject != null)
+        {
+            DOTween.Kill(topModelObject);
+        }
+
+        if (bottomModelObject != null)
+        {
+            DOTween.Kill(bottomModelObject);
+        }
     }
 }

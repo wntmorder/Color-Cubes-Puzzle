@@ -28,6 +28,7 @@ public class Model : MonoBehaviour
             GetBottomIntersectionModelObject().gameObject.SetActive(value);
         }
     }
+
     public void Initialize(ModelConfig modelConfig, ModelSides modelSide, int intersectionDistance)
     {
         numberOfObjects = modelConfig.Configs.Length;
@@ -35,6 +36,7 @@ public class Model : MonoBehaviour
         sideLength = Mathf.FloorToInt(numberOfObjects * 0.25f);
         radius = (sideLength * 0.5f) * objectSpacing;
         float modelOffsetValue = 0f;
+
         switch (modelSide)
         {
             case ModelSides.Left:
@@ -52,6 +54,7 @@ public class Model : MonoBehaviour
                     break;
                 }
         }
+
         Vector3 modelOffset = new(modelOffsetValue, 0f, modelOffsetValue);
 
         sides = new SideData[] {
@@ -75,6 +78,7 @@ public class Model : MonoBehaviour
 
         InstantiateModelObjects(modelConfig);
     }
+
     private void InstantiateModelObjects(ModelConfig modelConfig)
     {
         for (int i = 0; i < numberOfObjects; i++)
@@ -85,16 +89,19 @@ public class Model : MonoBehaviour
             modelObjects.Add(ModelObject);
         }
     }
+
     public void RotateLeft(float duration)
     {
         SetOffset(offset - 1);
         UpdateState(duration);
     }
+
     public void RotateRight(float duration)
     {
         SetOffset(offset + 1);
         UpdateState(duration);
     }
+
     private void SetOffset(int value)
     {
         offset = (value % numberOfObjects + numberOfObjects) % numberOfObjects;
@@ -103,6 +110,7 @@ public class Model : MonoBehaviour
             offset += numberOfObjects;
         }
     }
+
     private void UpdateState(float duration)
     {
         for (int i = 0; i < numberOfObjects; i++)
@@ -111,10 +119,12 @@ public class Model : MonoBehaviour
             modelObjects[i].MoveIn(GetPositionByIndex(index), duration);
         }
     }
+
     private int CalculateIndexWithOffset(int index)
     {
         return (index + offset) % numberOfObjects;
     }
+
     private int CalculateIntersectIndexWithOffset(int index)
     {
         int indexWO = (index - offset);
@@ -124,6 +134,7 @@ public class Model : MonoBehaviour
         }
         return indexWO % numberOfObjects;
     }
+
     private Vector3 GetPositionByIndex(int index)
     {
         int side = Mathf.FloorToInt(index / sideLength);
@@ -131,18 +142,22 @@ public class Model : MonoBehaviour
         Vector3 position = sideData.StartPosition + sideData.Direction * (CalculateIndexInSide(index, side));
         return position;
     }
+
     private int CalculateIndexInSide(int index, int side)
     {
         return index - (side * sideLength);
     }
+
     public ModelObject GetTopIntersectionModelObject()
     {
         return modelObjects[CalculateIntersectIndexWithOffset(topIntersectionIndex)];
     }
+
     public ModelObject GetBottomIntersectionModelObject()
     {
         return modelObjects[CalculateIntersectIndexWithOffset(bottomIntersectionIndex)];
     }
+
     public ModelObject[] GetIntersectionModelObjects()
     {
         return new ModelObject[2] { GetTopIntersectionModelObject(), GetBottomIntersectionModelObject() };

@@ -17,17 +17,21 @@ public partial class ModelObject : MonoBehaviour
             _renderer.material.color = value.color;
         }
     }
+
     private void Start()
     {
         Movement();
     }
+
     public void MoveIn(Vector3 position, float duration)
     {
-        moveBuffer.Add(new MoveStep { 
+        moveBuffer.Add(new MoveStep
+        {
             position = position,
             duration = duration
         });
     }
+
     private async void Movement()
     {
         if (moveBuffer.Count < 1)
@@ -36,10 +40,19 @@ public partial class ModelObject : MonoBehaviour
             Movement();
             return;
         }
+
         MoveStep step = moveBuffer[0];
         moveBuffer.RemoveAt(0);
 
         await transform.DOLocalMove(step.position, step.duration).AsyncWaitForCompletion();
         Movement();
+    }
+
+    private void OnDestroy()
+    {
+        if (transform != null)
+        {
+            DOTween.Kill(transform);
+        }
     }
 }

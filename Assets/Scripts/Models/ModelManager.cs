@@ -18,6 +18,7 @@ public class ModelManager : MonoBehaviour
         Swiping
     }
     private SwipeState swipeState = SwipeState.NotSwiping;
+
     public void CreateAndPlaceModel(ModelConfig modelLeftConfig, ModelConfig modelRightConfig)
     {
         modelLeft = modelFactory.CreateModel(modelLeftConfig, parentTransform, ModelSides.Left, intersectionDistance);
@@ -25,6 +26,7 @@ public class ModelManager : MonoBehaviour
         SetActiveModel(modelLeft);
         UpdateIntersectionModelObjects();
     }
+
     public void Rotate(Vector3 startPosition, Vector3 offset, float duration)
     {
         SetActiveModel((startPosition.x < screenHalfWidth) ? modelLeft : modelRight);
@@ -33,6 +35,7 @@ public class ModelManager : MonoBehaviour
 
         UpdateIntersectionModelObjects();
     }
+
     private void SetActiveModel(Model model)
     {
         activeModel = model;
@@ -40,6 +43,7 @@ public class ModelManager : MonoBehaviour
         activeModel.IsActiveModel = true;
         notActiveModel.IsActiveModel = false;
     }
+
     private void RotateActiveModel(float offsetY, float duration)
     {
         if (offsetY < 0)
@@ -55,11 +59,13 @@ public class ModelManager : MonoBehaviour
             ModelRotated?.Invoke();
         }
     }
+
     private void UpdateIntersectionModelObjects()
     {
         notActiveModel.GetTopIntersectionModelObject().ModelObjectConfig = activeModel.GetTopIntersectionModelObject().ModelObjectConfig;
         notActiveModel.GetBottomIntersectionModelObject().ModelObjectConfig = activeModel.GetBottomIntersectionModelObject().ModelObjectConfig;
     }
+
     public ModelObjectType[] GetActiveModelIntersectionTypes()
     {
         return new ModelObjectType[]
@@ -68,10 +74,12 @@ public class ModelManager : MonoBehaviour
             activeModel.GetBottomIntersectionModelObject().ModelObjectConfig.type
         };
     }
+
     public void UpdateSwipeState(bool isSwiping)
     {
         swipeState = isSwiping ? SwipeState.Swiping : SwipeState.NotSwiping;
     }
+
     public void ClearAllModels()
     {
         activeModel.ModelObjects.Clear();

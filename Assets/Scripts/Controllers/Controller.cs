@@ -18,6 +18,7 @@ public class Controller : MonoBehaviour
         inputHandler.OnSwipeMove += OnSwipeMove;
         inputHandler.OnSwipeEnd += OnSwipeEnd;
     }
+
     private void OnSwipeStart(Vector3 startPosition)
     {
         isSwiping = true;
@@ -25,22 +26,26 @@ public class Controller : MonoBehaviour
         lastSwipeStartTime = Time.time;
         startSwipePosition = startPosition;
     }
+
     private void OnSwipeMove(Vector3 currentPosition)
     {
         endSwipePosition = currentPosition;
         offset = endSwipePosition - startSwipePosition;
         CheckSwipe();
     }
+
     private void OnSwipeEnd(Vector3 endPosition)
     {
         isSwiping = false;
         modelManager.UpdateSwipeState(isSwiping);
         endSwipePosition = endPosition;
     }
+
     private void Update()
     {
         inputHandler.Update();
     }
+
     private void CheckSwipe()
     {
         if (isSwiping && Mathf.Abs(offset.y) > swipeZone)

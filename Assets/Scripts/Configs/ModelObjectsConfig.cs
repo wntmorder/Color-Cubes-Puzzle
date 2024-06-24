@@ -6,6 +6,7 @@ public class ModelObjectsConfig : ScriptableObject
 {
     [SerializeField] private ModelObjectConfig[] configs;
     private Dictionary<ModelObjectType, ModelObjectConfig> configsByType;
+
     private void OnValidate()
     {
         configsByType = new();
@@ -14,6 +15,7 @@ public class ModelObjectsConfig : ScriptableObject
             configsByType[config.type] = config;
         }
     }
+
     public ModelObjectConfig GetModelObjectConfig(ModelObjectType type)
     {
         return configsByType.ContainsKey(type) ? configsByType[type] : configsByType[ModelObjectType.Yellow];

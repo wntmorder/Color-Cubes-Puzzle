@@ -9,15 +9,18 @@ public class LevelManager : MonoBehaviour
     public LevelConfig[] LevelConfigs => levelConfigs;
     public int LevelNumber { get; private set; } = 0;
     public int CurrentTaskIndex { get; private set; } = 0;
+
     private void Start()
     {
         modelManager.ModelRotated += OnModelRotated;
         StartLevel(LevelNumber);
     }
+
     private void StartLevel(int levelNumber)
     {
         modelManager.CreateAndPlaceModel(levelConfigs[levelNumber].ModelLeftConfig, levelConfigs[levelNumber].ModelRightConfig);
     }
+
     private void OnModelRotated()
     {
         if (LevelNumber <= levelConfigs.Length
@@ -28,6 +31,7 @@ public class LevelManager : MonoBehaviour
             LevelChanged?.Invoke(LevelNumber);
         }
     }
+
     public void StartNewLevel()
     {
         if (CurrentTaskIndex >= levelConfigs[LevelNumber].LevelTasks.Length)

@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
         levelManager.LevelChanged += OnLevelChanged;
         StartLevel();
     }
+
     private void StartLevel()
     {
         if (levelManager.LevelNumber >= levelManager.LevelConfigs.Length - 1)
@@ -39,6 +40,7 @@ public class UIManager : MonoBehaviour
         OnLevelChanged(levelManager.LevelNumber);
         controller.gameObject.SetActive(true);
     }
+
     private void InitializeTaskViews()
     {
         for (int i = 0; i < levelManager.LevelConfigs[levelManager.LevelNumber].LevelTasks.Length; i++)
@@ -50,6 +52,7 @@ public class UIManager : MonoBehaviour
             FadeView(i, minFadeValue);
         }
     }
+
     private void OnLevelChanged(int levelNumber)
     {
         if (levelManager.CurrentTaskIndex >= levelManager.LevelConfigs[levelNumber].LevelTasks.Length)
@@ -59,6 +62,7 @@ public class UIManager : MonoBehaviour
         }
 
         FadeView(levelManager.CurrentTaskIndex, maxFadeValue);
+
         for (int i = 0; i < taskViews.Count; i++)
         {
             if (i != levelManager.CurrentTaskIndex)
@@ -67,34 +71,66 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
     private void FadeView(int index, float endFadeValue)
     {
         taskViews[index].GetComponentsInChildren<Image>()[0].DOFade(endFadeValue, duration);
         taskViews[index].GetComponentsInChildren<Image>()[1].DOFade(endFadeValue, duration);
     }
+
     private void MovePopup(GameObject popup, Vector3 position)
     {
         popup.transform.DOMove(position, duration);
     }
+
     private void LevelComplete()
     {
         levelNumberText.DOFade(0f, duration);
         MovePopup(levelWinPopUp, canvas.transform.position);
         controller.gameObject.SetActive(false);
+
         for (int i = 0; i < tasksContainer.childCount; i++)
         {
             Destroy(tasksContainer.GetChild(i).gameObject);
         }
         taskViews.Clear();
     }
+
     public void StartNewLevel()
     {
         MovePopup(levelWinPopUp, canvas.transform.position - movePopUpPosition);
         StartLevel();
     }
+
     public void CloseGame()
     {
         MovePopup(levelsCompletePopUp, canvas.transform.position + movePopUpPosition);
         Application.Quit();
+    }
+
+    private void OnDestroy()
+    {
+        if (levelNumberText != null)
+        {
+            DOTween.Kill(levelNumberText);
+        }
+
+        if (levelWinPopUp != null)
+        {
+            DOTween.Kill(levelWinPopUp.transform);
+        }
+
+        if (levelsCompletePopUp != null)
+        {
+            DOTween.Kill(levelsCompletePopUp.transform);
+        }
+
+        foreach (var taskView in taskViews)
+        {
+            if (taskView != null)
+            {
+                DOTween.Kill(taskView);
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ public interface IInputHandler
     event Action<Vector3> OnSwipeEnd;
     void Update();
 }
+
 public class MouseInputHandler : IInputHandler
 {
     private Vector3 currentMousePosition;
@@ -34,6 +35,7 @@ public class MouseInputHandler : IInputHandler
         }
     }
 }
+
 public class TouchInputHandler : IInputHandler
 {
     private Vector3 currentTouchPosition;
@@ -63,6 +65,7 @@ public class TouchInputHandler : IInputHandler
         }
     }
 }
+
 public class InputFactory
 {
     public static IInputHandler CreateInputHandler()

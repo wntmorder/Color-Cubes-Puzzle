@@ -10,7 +10,7 @@ public class SceneManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -30,6 +30,7 @@ public class SceneManager : MonoBehaviour
     {
         loadingScreen.SetActive(true);
         AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
+        
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress);
